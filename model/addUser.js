@@ -2,25 +2,30 @@ const getClient = require("./mongodbConnection");
 
 const insertNewUser = async () => {
     return new Promise( async (resolve, reject) =>{
-        const gettingClient = await getClient()
-        .then(client => {
+        const gettingClient = getClient()
+        .then(async client => {
             try{
-                const connection = client.connect();
-                resolve(connection);
-            }catch(err){
-                reject(err);
+                const connection = await client.connect();
+                const collection = client.db('users').collection('metadata')
+                const p = await collection.insertOne(
+                    {name : "Nikhil Anand", dob: "1997-08-04", noOfBlogs: 0, emailID: "anandnikhil91@gmail.com"}
+                ).then(r =>{
+                    resolve("Insertion Successfull")
+                }).catch(err =>{
+                    reject("Error in insertion: ",err)
+                });
+            }catch(err2){
+                reject(err2);
             } 
+            finally{
+                await client.close();
+            }
         })
-        .catch( err2 =>{
-            console.log(err2);
+        .catch( err3 =>{
+            console.log(err3);
+            reject(err3);
         });
     })
-    
-//   .connect(err => {
-//       const collection = getClient.db("users").collection("metadata");
-//       collection.insertOne({ item: "box", qty: 20 })
-//       getClient.close();
-//     });
 }
 
 module.exports = insertNewUser;
