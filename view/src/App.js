@@ -3,29 +3,35 @@ import { Router } from '@reach/router'
 import Profile from './components/profile/profile.js'
 import Home from './components/home/home.js'
 import MyBlogs from './components/my_blogs/my_blogs.js'
+import Navigation from './components/navigation/navigation.js'
+import logo from './assets/images/logo.svg'
+import './App.css'
 
 function App() {
-  const Navigation = () => {
     const navLinks = [
         {
           text: 'Home',
           path: '/',
-          icon: 'ios-ios-megaphone'
+          icon: 'ion-ios-home'
         },
         {
             text: 'Profile',
             path: '/profile',
-            icon: 'ios-ios-megaphone'
+            icon: 'ion-ios-person'
         },        
         {
             text: 'MyBlogs',
             path: '/myblogs',
-            icon: 'ios-ios-megaphone'
+            icon: 'ion-ios-megaphone'
         }        
     ]
-  }
+  
   return (
-    <div className="Nav">
+    <div className="App">
+        <Navigation
+            navLinks={ navLinks }
+            logo= { logo }
+            />
             <Router>
                 <Home path="/" />
                 <Profile path="/profile" />
@@ -34,5 +40,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
