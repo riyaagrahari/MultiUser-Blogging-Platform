@@ -31,6 +31,9 @@ function App() {
         <Navigation
             navLinks={ navLinks }
             logo= { logo }
+            // background= "fff"
+            // hoverBackground="#ddd"
+            // linkColor="#777"
             />
             <Router>
                 <Home path="/" />
